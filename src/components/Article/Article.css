@@ -10,6 +10,8 @@
 }
 
 .article .title {
+    font-size: 1.5em;
+    font-weight: bold;
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
@@ -21,7 +23,7 @@
 }
 
 @media(min-width: 600px) {
-    .article {
+    .article .list {
         width: calc((100% / 2) - 40px);
     }
     .article .author {

@@ -1,8 +1,10 @@
 // @flow
 import React, { Component } from 'react';
-import { request, ARTICLES_QUERY } from './../../graphql';
+import { connect } from 'react-redux';
 import { Article } from './../../components';
 import { Article as IArticle } from './../../types';
+import { getArticles } from './../../actions';
+import { State } from './../../reducers';
 import './App.css';
 
 class App extends Component {
@@ -10,20 +12,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.renderArticles = this.renderArticles.bind(this);
-    this.state = {
-      articles: [],
-    };
   }
 
   // lifecycle
   componentWillMount() {
-    request(ARTICLES_QUERY).then(response => {
-      this.setState({ articles: response.data.articles });
-    });
+    const { dispatch } = this.props;
+    dispatch(getArticles());
   }
 
+  props: {
+    dispatch: any,
+    articles: IArticle[]
+  };
+
   renderArticles() {
-    return this.state.articles.map((article: IArticle) =>
+    return this.props.articles.map((article: IArticle) =>
       <Article key={article.id} data={article} />,
     );
   }
@@ -38,4 +41,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state: State) => ({
+  articles: state.article.articles,
+});
+
+App.defaultProps = {
+  articles: [],
+};
+
+export default connect(mapStateToProps)(App);

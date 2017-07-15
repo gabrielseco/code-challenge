@@ -6,6 +6,7 @@ import {
   GraphQLSchema,
 } from 'graphql';
 import db from './db';
+import findById from './queries';
 
 const articleType = new GraphQLObjectType({
   name: 'Article',
@@ -41,8 +42,11 @@ const Query = new GraphQLObjectType({
   fields: () => ({
     articles: {
       type: new GraphQLList(articleType),
-      resolve() {
-        return db.Article.find();
+      args: {
+        id: { type: GraphQLString, description: 'Get article by Id' },
+      },
+      resolve(_, args) {
+        return args.id ? findById(db, 'Article', args.id) : db.Article.find();
       },
     },
   }),
