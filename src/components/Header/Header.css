@@ -1,0 +1,19 @@
+header {
+    align-items: center;
+    background: #A8ACC7;
+    display: flex;
+    justify-content: center;
+    height: 60px;
+    width: 100%;
+}
+
+.fixed {
+    position: fixed;
+}
+
+
+header .title {
+    color: #E7E5DF;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}

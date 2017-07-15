@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.1",
+    "flow-bin": "^0.50.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-fontawesome": "^1.6.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -14,9 +16,12 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "react-router-dom": "^4.1.1"
+
   },
   "scripts": {
+    "flow": "flow",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom"
