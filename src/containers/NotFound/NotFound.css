@@ -1,0 +1,25 @@
+.not-found {
+  align-items:  center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100vh - 70px);
+}
+
+.not-found p {
+  font-size: 10em;
+  height: 300px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.not-found a {
+  background: #A8ACC7;
+  border-radius: 2px;
+  color: #FFF;
+  letter-spacing: 0.125em;
+  padding: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 15vw;
+}
