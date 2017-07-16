@@ -7,9 +7,8 @@
 }
 
 .not-found p {
-  font-size: 10em;
-  height: 300px;
-  margin: 0;
+  font-size: 10vw;
+  margin: 0 0 50px 0;
   text-transform: uppercase;
 }
 
@@ -21,5 +20,11 @@
   padding: 20px;
   text-align: center;
   text-transform: uppercase;
-  width: 15vw;
+  width: 100vw;
+}
+
+@media(min-width: 600px) {
+  .not-found a {
+    width: 15vw;
+  }
 }
