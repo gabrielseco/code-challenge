@@ -1,3 +1,4 @@
+// @flow
 export type Article = {
   author: string;
   content: string;

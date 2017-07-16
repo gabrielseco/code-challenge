@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import { Article as IArticle } from './../../types';
 import './Article.css';
 
-const Article = ({ data }: { data: IArticle }) => {
+type Props = {
+  data: IArticle,
+};
+
+const Article = ({ data }: Props) => {
   const link = `detail/${data.id}`;
   return (
     <section className="article">

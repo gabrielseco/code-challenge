@@ -4,11 +4,13 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import './Button.css';
 
-const Button = (props: {
+type Props = {
   icon: string,
+  onClick: Function,
   size?: string,
-  onClick: Function
-}) => {
+};
+
+const Button = (props: Props) => {
   const onClick = () => {
     if (props.onClick) {
       props.onClick({
