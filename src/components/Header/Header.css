@@ -1,6 +1,7 @@
 header {
     align-items: center;
     background: #A8ACC7;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     height: 60px;
