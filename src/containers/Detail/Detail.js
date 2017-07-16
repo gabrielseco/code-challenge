@@ -27,7 +27,7 @@ class Detail extends Component {
 
   renderTags() {
     if (this.props.article.tags !== undefined) {
-      return this.props.article.tags.map(tag => <p key={tag}>{tag}</p>);
+      return this.props.article.tags.map(tag => <p className="text-center" key={tag}>{tag}</p>);
     }
     return null;
   }
@@ -36,12 +36,12 @@ class Detail extends Component {
   render() {
     return (
       <div className="detail">
-        <h2 className="title">
+        <h2 className="title text-center">
           {this.props.article.title}
         </h2>
-        <p className="author">{this.props.article.author}</p>
-        <p className="content">{this.props.article.content}</p>
-        <p className="pubished">{this.props.article.published ? 'SÍ' : 'NO'}</p>
+        <p className="author text-center">{this.props.article.author}</p>
+        <p className="content text-center">{this.props.article.content}</p>
+        <p className="pubished text-center">{this.props.article.published ? 'SÍ' : 'NO'}</p>
         {this.renderTags()}
       </div>
     );
