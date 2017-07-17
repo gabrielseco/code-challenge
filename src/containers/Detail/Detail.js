@@ -10,7 +10,7 @@ import type { Article as IArticle } from './../../types';
 import './Detail.css';
 
 type DefaultProps = {
-  article: IArticle | null
+  article: IArticle
 };
 
 type Props = {
@@ -64,7 +64,13 @@ class Detail extends Component<DefaultProps, Props, void> {
 }
 
 Detail.defaultProps = {
-  article: null,
+  article: {
+    title: '',
+    author: '',
+    content: '',
+    published: false,
+    tags: [],
+  },
 };
 
 const mapStateToProps = (state: State) => ({
