@@ -21,7 +21,7 @@ const Article = ({ data }) => {
 };
 
 Article.propTypes = {
-  data: PropTypes.object
-}
+  data: PropTypes.object,
+};
 
 export default Article;

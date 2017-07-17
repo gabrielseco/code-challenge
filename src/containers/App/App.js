@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Article } from './../../components';
 import { getArticles } from './../../actions';
@@ -39,6 +40,11 @@ const mapStateToProps = state => ({
 
 App.defaultProps = {
   articles: [],
+};
+
+App.propTypes = {
+  articles: PropTypes.arrayOf(PropTypes.object),
+  dispatch: PropTypes.func,
 };
 
 export default connect(mapStateToProps)(App);

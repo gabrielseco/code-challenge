@@ -16,7 +16,8 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  title: PropTypes.string
+  history: PropTypes.object,
+  title: PropTypes.string,
 };
 
 

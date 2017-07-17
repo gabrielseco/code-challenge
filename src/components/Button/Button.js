@@ -19,9 +19,9 @@ const Button = props => {
 };
 
 Button.propTypes = {
-  onClick: PropTypes.func,
   icon: PropTypes.string,
-  size: PropTypes.string
-}
+  onClick: PropTypes.func,
+  size: PropTypes.string,
+};
 
 export default Button;
