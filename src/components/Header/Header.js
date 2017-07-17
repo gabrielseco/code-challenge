@@ -20,5 +20,4 @@ Header.propTypes = {
   title: PropTypes.string,
 };
 
-
 export default withRouter(Header);
