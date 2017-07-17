@@ -1,5 +1,6 @@
 // @flow
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type { Children } from 'react';
 import { withRouter } from 'react-router-dom';
 
 class ScrollToTop extends Component {
@@ -11,7 +12,7 @@ class ScrollToTop extends Component {
 
   props: {
     location: any,
-    children: React.ReactChildren
+    children: Children
   }
 
   render() {

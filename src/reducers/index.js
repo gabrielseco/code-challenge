@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { article, State as ArticleState } from './article';
+import { article } from './article';
+import type { State as ArticleState } from './article';
 
 export type State = {
   article: ArticleState

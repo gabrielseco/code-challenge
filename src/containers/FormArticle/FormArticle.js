@@ -4,39 +4,41 @@ import './FormArticle.css';
 
 type State = {
   form: {
-    title: string,
+    title: string
   }
 };
 
 class FormArticle extends Component {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
     this.state = {
-      form: {},
+      form: {
+        title: '',
+      },
     };
   }
-  state: State
+  state: State;
 
-  onSubmit(event) {
+  onSubmit(event: any) {
     event.preventDefault();
-    this.form = {};
+    this.setState({});
   }
 
-  onChange(event) {
+  onChange(event: any) {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
 
+  props: any;
+
   render() {
     return (
       <div>
         <h1 className="text-center">Create a new article</h1>
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={() => this.onSubmit}>
           <label htmlFor="title">Title: </label>
-          <input type="text" onChange={this.onChange} name="title" />
+          <input type="text" onChange={() => this.onChange} name="title" />
           <input type="submit" value="SEND" />
         </form>
       </div>
@@ -45,4 +47,3 @@ class FormArticle extends Component {
 }
 
 export default FormArticle;
-

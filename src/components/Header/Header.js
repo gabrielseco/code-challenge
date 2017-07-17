@@ -1,11 +1,12 @@
 // @flow
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import type { RouterHistory } from 'react-router-dom';
 import './Header.css';
 
 type Props = {
   title: string,
-  history: any,
+  history: RouterHistory,
 };
 
 const Header = (props: Props) => (

@@ -1,18 +1,19 @@
 // @flow
-import { Article as IArticle } from './../types';
+import type { Dispatch } from 'redux';
+import type { Article as IArticle } from './../types';
 import { request, ARTICLES_QUERY, ARTICLE_QUERY } from './../graphql';
 
 export const SET_ARTICLES = 'SET_ARTICLES';
 export const SET_ARTICLE = 'SET_ARTICLE';
 
-function setArticles({ articles } : { articles: IArticle[] }) {
+function setArticles({ articles }: { articles: IArticle[] }) {
   return {
     type: SET_ARTICLES,
     payload: articles,
   };
 }
 
-function setArticle({ articles } : { articles: IArticle[]}) {
+function setArticle({ articles }: { articles: IArticle[] }) {
   return {
     type: SET_ARTICLE,
     payload: articles,
@@ -20,7 +21,7 @@ function setArticle({ articles } : { articles: IArticle[]}) {
 }
 
 export function getArticles() {
-  return dispatch => {
+  return (dispatch: Dispatch<*>) => {
     request(ARTICLES_QUERY).then(response => {
       dispatch(setArticles(response.data));
     });
@@ -28,7 +29,7 @@ export function getArticles() {
 }
 
 export function getArticle(id: string) {
-  return dispatch => {
+  return (dispatch: Dispatch<*>) => {
     request(ARTICLE_QUERY(id)).then(response => {
       dispatch(setArticle(response.data));
     });

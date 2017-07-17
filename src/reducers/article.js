@@ -1,10 +1,11 @@
 // @flow
-import { Article as IArticle } from './../types';
+import type { Article as IArticle } from './../types';
 import { SET_ARTICLES, SET_ARTICLE } from './../actions';
+import type { ArticlesAction } from './../actions';
 
 export type State = {
   articles: IArticle[],
-  article: IArticle
+  article: IArticle[],
 };
 
 const initialState: State = {
@@ -12,7 +13,7 @@ const initialState: State = {
   article: [],
 };
 
-const article = (state: State = initialState, action) => {
+const article = (state: State = initialState, action: ArticlesAction) => {
   switch (action.type) {
     case SET_ARTICLES:
       return {

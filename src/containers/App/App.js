@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Article } from './../../components';
-import { Article as IArticle } from './../../types';
+import type { Article as IArticle } from './../../types';
 import { getArticles } from './../../actions';
 import { State } from './../../reducers';
 import './App.css';
