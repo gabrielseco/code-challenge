@@ -1,4 +1,3 @@
-// @flow
 export const ARTICLES_QUERY = `{
   articles {
     author,
@@ -8,7 +7,7 @@ export const ARTICLES_QUERY = `{
   }
 }`;
 
-export const ARTICLE_QUERY = (id: string) => `{
+export const ARTICLE_QUERY = id => `{
   articles(id: "${id}") {
     author,
     content,

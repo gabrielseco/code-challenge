@@ -1,15 +1,9 @@
-// @flow
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
-import type { RouterHistory } from 'react-router-dom';
 import './Header.css';
 
-type Props = {
-  title: string,
-  history: RouterHistory,
-};
-
-const Header = (props: Props) => (
+const Header = props => (
   <header className="header fixed" onClick={() => props.history.push('/')}>
     <Link to="/">
       <h2 className="title">{props.title}</h2>
@@ -19,6 +13,10 @@ const Header = (props: Props) => (
 
 Header.defaultProps = {
   title: 'Billin',
+};
+
+Header.propTypes = {
+  title: PropTypes.string
 };
 
 

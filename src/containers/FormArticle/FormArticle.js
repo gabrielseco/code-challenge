@@ -1,15 +1,9 @@
-// @flow
 import React, { Component } from 'react';
 import './FormArticle.css';
 
-type State = {
-  form: {
-    title: string
-  }
-};
 
 class FormArticle extends Component {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
     this.state = {
       form: {
@@ -17,20 +11,17 @@ class FormArticle extends Component {
       },
     };
   }
-  state: State;
 
-  onSubmit(event: any) {
+  onSubmit(event) {
     event.preventDefault();
     this.setState({});
   }
 
-  onChange(event: any) {
+  onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
-
-  props: any;
 
   render() {
     return (

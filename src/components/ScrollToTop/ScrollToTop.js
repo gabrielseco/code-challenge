@@ -1,6 +1,4 @@
-// @flow
 import { Component } from 'react';
-import type { Children } from 'react';
 import { withRouter } from 'react-router-dom';
 
 class ScrollToTop extends Component {
@@ -8,11 +6,6 @@ class ScrollToTop extends Component {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);
     }
-  }
-
-  props: {
-    location: any,
-    children: Children
   }
 
   render() {

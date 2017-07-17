@@ -1,15 +1,10 @@
-// @flow
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import type { Article as IArticle } from './../../types';
 import './Article.css';
 
-type Props = {
-  data: IArticle,
-};
-
-const Article = ({ data }: Props) => {
-  const link: string = `detail/${data.id}`.toString();
+const Article = ({ data }) => {
+  const link = `detail/${data.id}`;
   return (
     <section className="article">
       <Link to={link} className="title">
@@ -24,5 +19,9 @@ const Article = ({ data }: Props) => {
     </section>
   );
 };
+
+Article.propTypes = {
+  data: PropTypes.object
+}
 
 export default Article;

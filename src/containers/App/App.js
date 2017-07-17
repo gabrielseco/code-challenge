@@ -1,10 +1,7 @@
-// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Article } from './../../components';
-import type { Article as IArticle } from './../../types';
 import { getArticles } from './../../actions';
-import { State } from './../../reducers';
 import './App.css';
 
 class App extends Component {
@@ -20,13 +17,8 @@ class App extends Component {
     dispatch(getArticles());
   }
 
-  props: {
-    dispatch: any,
-    articles: IArticle[]
-  };
-
   renderArticles() {
-    return this.props.articles.map((article: IArticle) =>
+    return this.props.articles.map(article =>
       <Article key={article.id} data={article} />,
     );
   }
@@ -41,7 +33,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = state => ({
   articles: state.article.articles,
 });
 
