@@ -1,4 +1,4 @@
-import { SET_ARTICLES, SET_ARTICLE } from './../actions';
+import { SET_ARTICLES, SET_ARTICLE, DELETE_ARTICLE } from './../actions';
 
 const initialState = {
   articles: [],
@@ -16,6 +16,14 @@ const article = (state = initialState, action) => {
       return {
         ...state,
         article: action.payload,
+      };
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        articles: [
+          ...state.articles.slice(0, action.payload.index),
+          ...state.articles.slice(action.payload.index + 1),
+        ],
       };
     default:
       return state;
