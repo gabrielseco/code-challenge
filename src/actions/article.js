@@ -26,9 +26,7 @@ function setArticle({ articles }) {
 function removeArticle(index) {
   return {
     type: DELETE_ARTICLE,
-    payload: {
-      index,
-    },
+    payload: index,
   };
 }
 
