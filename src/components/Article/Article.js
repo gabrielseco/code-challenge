@@ -5,9 +5,7 @@ import './Article.css';
 
 const Article = ({ data, onRemove }) => {
   const removeHandler = () => {
-    if (onRemove) {
-      onRemove(data);
-    }
+    onRemove(data);
   };
   const link = `detail/${data.id}`;
   return (
@@ -27,8 +25,8 @@ const Article = ({ data, onRemove }) => {
 };
 
 Article.propTypes = {
-  data: PropTypes.object,
-  onRemove: PropTypes.func,
+  data: PropTypes.object.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default Article;
