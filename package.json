@@ -21,6 +21,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
+    "nock": "^9.0.14",
     "react-scripts": "1.0.10",
     "react-test-renderer": "^15.5.4"
   },

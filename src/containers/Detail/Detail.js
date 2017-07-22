@@ -31,28 +31,25 @@ class Detail extends Component {
     if (this.props.article === undefined) {
       return <div>Loading</div>;
     }
-
-    if (this.props.article) {
-      return (
-        <div className="detail">
-          <h2 className="title text-center">
-            {this.props.article.title}
-          </h2>
-          <p className="author text-center">
-            {this.props.article.author}
-          </p>
-          <p className="content text-center">
-            {this.props.article.content}
-          </p>
-          <p className="pubished text-center">
-            {this.props.article.published ? 'SÍ' : 'NO'}
-          </p>
+    return (
+      <div className="detail">
+        <h2 className="title text-center">
+          {this.props.article.title}
+        </h2>
+        <p className="author text-center">
+          {this.props.article.author}
+        </p>
+        <p className="content text-center">
+          {this.props.article.content}
+        </p>
+        <p className="published text-center">
+          {this.props.article.published ? 'SÍ' : 'NO'}
+        </p>
+        <div className="tags">
           {this.renderTags()}
         </div>
-      );
-    }
-
-    return null;
+      </div>
+    );
   }
 }
 
@@ -63,9 +60,9 @@ const mapStateToProps = state => ({
 Detail.propTypes = {
   article: PropTypes.object,
   dispatch: PropTypes.func,
-  match: PropTypes.any,
+  match: PropTypes.object,
 };
 
-export { Detail as DetailTesting };
+export { Detail as DetailTesting, mapStateToProps };
 
 export default connect(mapStateToProps)(Detail);
