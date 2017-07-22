@@ -15,9 +15,10 @@ const articlesMock = [{
 },
 ];
 
+const dispatch = jest.fn();
+
 describe('App suite', () => {
   it('renders App without any state injected', () => {
-    const dispatch = jest.fn();
     const wrapper = shallow(<AppTesting dispatch={dispatch} />);
 
     expect(wrapper).toBeDefined();
@@ -25,7 +26,6 @@ describe('App suite', () => {
   });
 
   it('renders App with state injected', () => {
-    const dispatch = jest.fn();
     const wrapper = shallow(<AppTesting dispatch={dispatch} articles={articlesMock} />);
     const articles = wrapper.find(Article);
 
@@ -44,13 +44,13 @@ describe('App suite', () => {
     });
   });
 
-  xit('should test onRemove callback', () => {
-    const dispatch = jest.fn();
+  it('should test onRemove callback', () => {
     const onRemove = jest.fn();
     const comp = <AppTesting dispatch={dispatch} articles={articlesMock} onRemove={onRemove} />;
     const wrapper = shallow(comp);
+    wrapper.instance().onRemove();
     expect(wrapper).toBeDefined();
-    expect(onRemove).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalled();
   });
 });
 
