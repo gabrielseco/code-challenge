@@ -66,4 +66,6 @@ Detail.propTypes = {
   match: PropTypes.any,
 };
 
+export { Detail as DetailTesting };
+
 export default connect(mapStateToProps)(Detail);

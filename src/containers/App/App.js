@@ -60,4 +60,6 @@ App.propTypes = {
   dispatch: PropTypes.func,
 };
 
+export { App as AppTesting, mapStateToProps };
+
 export default connect(mapStateToProps)(App);

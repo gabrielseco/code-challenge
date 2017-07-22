@@ -20,4 +20,6 @@ Header.propTypes = {
   title: PropTypes.string,
 };
 
+export { Header as HeaderTesting };
+
 export default withRouter(Header);
