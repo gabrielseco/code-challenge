@@ -18,9 +18,9 @@ export const ARTICLE_QUERY = id => `{
 }`;
 
 
-export const ARTICLE_DELETE_QUERY = article => `
+export const ARTICLE_DELETE_QUERY = id => `
   mutation delete { 
-    deleteArticle(id: "${article.id}") {
+    deleteArticle(id: "${id}") {
       id,
       author,
       content,

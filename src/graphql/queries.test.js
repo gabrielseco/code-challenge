@@ -41,6 +41,6 @@ describe('Queries suite', () => {
   });
 
   it('should return the ARTICLE_DELETE_QUERY', () => {
-    expect(ARTICLE_DELETE_QUERY({ id: 'XX0405995' })).toEqual(ARTICLE_DELETE_QUERY_MOCK);
+    expect(ARTICLE_DELETE_QUERY('XX0405995')).toEqual(ARTICLE_DELETE_QUERY_MOCK);
   });
 });
