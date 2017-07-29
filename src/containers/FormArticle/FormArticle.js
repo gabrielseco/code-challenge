@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Tag } from './../../components';
+import Shared from './../../shared';
 import './FormArticle.css';
 
 class FormArticle extends Component {
@@ -8,10 +10,14 @@ class FormArticle extends Component {
     this.onChange = this.onChange.bind(this);
     this.onChangeCheckBox = this.onChangeCheckBox.bind(this);
     this.onChangeTag = this.onChangeTag.bind(this);
+    this.writeTag = this.writeTag.bind(this);
     this.renderTags = this.renderTags.bind(this);
 
     this.state = {
-      tag: '',
+      tag: {
+        color: '',
+        name: '',
+      },
       form: {
         title: '',
         author: '',
@@ -48,15 +54,27 @@ class FormArticle extends Component {
 
   onChangeTag(event) {
     this.setState({
-      tag: event.target.value,
+      tag: {
+        name: event.target.value,
+        color: Shared.getColor() || this.state.tag.color,
+      },
       form: {
         ...this.state.form,
       },
     });
+  }
+
+  writeTag(event) {
     if (event.keyCode !== undefined && event.keyCode === 13) {
-      const tags = [...this.state.form.tags, event.target.value];
+      const tags = [
+        ...this.state.form.tags,
+        { color: this.state.tag.color, name: this.state.tag.name },
+      ];
       this.setState({
-        tag: '',
+        tag: {
+          color: '',
+          name: '',
+        },
         form: {
           ...this.state.form,
           tags,
@@ -66,7 +84,9 @@ class FormArticle extends Component {
   }
 
   renderTags() {
-    return this.state.form.tags.map((tag, index) => <p key={index}>{tag}</p>);
+    return this.state.form.tags.map((tag, index) => {
+      return <Tag key={index} name={tag.name} color={tag.color} />;
+    });
   }
 
   render() {
@@ -92,7 +112,7 @@ class FormArticle extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="tag">Tags: </label>
-            <input type="text" value={this.state.tag} onChange={this.onChangeTag} onKeyDown={this.onChangeTag} name="tag" />
+            <input type="text" value={this.state.tag.name} onChange={this.onChangeTag} onKeyDown={this.writeTag} name="tag" />
           </div>
           <div className="form-group">
             <label htmlFor="published">Published: </label>

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getArticle } from './../../actions';
+import { Tag } from './../../components';
+import Shared from './../../shared';
 import './Detail.css';
 
 class Detail extends Component {
@@ -18,9 +20,7 @@ class Detail extends Component {
   renderTags() {
     if (this.props.article.tags !== undefined) {
       return this.props.article.tags.map(tag =>
-        <p className="text-center" key={tag}>
-          {tag}
-        </p>,
+        <Tag key={tag} name={tag} color={Shared.getColor()} />,
       );
     }
     return null;
@@ -37,13 +37,13 @@ class Detail extends Component {
           {this.props.article.title}
         </h2>
         <p className="author text-center">
-          {this.props.article.author}
+          By: {this.props.article.author}
         </p>
         <p className="content text-center">
           {this.props.article.content}
         </p>
         <p className="published text-center">
-          {this.props.article.published ? 'SÍ' : 'NO'}
+          Published: {this.props.article.published ? 'Yes' : 'No'}
         </p>
         <div className="tags">
           {this.renderTags()}

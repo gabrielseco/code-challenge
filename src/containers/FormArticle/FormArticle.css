@@ -39,3 +39,9 @@ textarea {
     font-size: 0.9em;
     padding: 20px;
 }
+
+.form-article form > .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 40px 0 40px calc(30% - 20px);
+}
