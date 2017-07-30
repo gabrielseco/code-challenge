@@ -76,7 +76,8 @@ class FormArticle extends Component {
   }
 
   writeTag(event) {
-    if (event.keyCode !== undefined && event.keyCode === 13) {
+    if (event.keyCode !== undefined && event.keyCode === 13 && this.state.tag.name !== '') {
+      event.preventDefault();
       const tags = [
         ...this.state.form.tags,
         { color: this.state.tag.color, name: this.state.tag.name },

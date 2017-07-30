@@ -37,7 +37,8 @@ export const ARTICLE_CREATE_QUERY = article => `
       author: "${article.author}",
       excerpt: "${article.excerpt}",
       content: "${article.content}",
-      published: ${article.published}
+      published: ${article.published},
+      tags: "${article.tags}",
     }){
       id,
       title,
@@ -46,3 +47,4 @@ export const ARTICLE_CREATE_QUERY = article => `
     }
 }
 `;
+

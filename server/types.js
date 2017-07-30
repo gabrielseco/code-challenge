@@ -45,10 +45,11 @@ const ArticleInputType = new GraphQLInputObjectType({
     excerpt: { type: new GraphQLNonNull(GraphQLString) },
     content: { type: new GraphQLNonNull(GraphQLString) },
     published: { type: new GraphQLNonNull(GraphQLBoolean) },
-    tags: { type: new GraphQLList(GraphQLBoolean) },
+    tags: { type: new GraphQLList(GraphQLString) },
   }),
 });
 
 export {
-  ArticleType, ArticleInputType,
+  ArticleType,
+  ArticleInputType,
 };

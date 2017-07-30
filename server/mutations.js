@@ -19,6 +19,10 @@ const DeleteArticleMutation = {
   },
 };
 
+// TODO: When I send an array by template string it concatenates with commas due to toString() method
+// When it comes here I get an array length = 1 concatenated with commas
+// Get the first position and do an split until I discover a better way to do it.
+
 const AddArticleMutation = {
   createArticle: {
     type: ArticleType,
@@ -27,11 +31,15 @@ const AddArticleMutation = {
       article: { type: ArticleInputType },
     },
     resolve: (value, { article }) => {
-      return save(db, 'Article', article);
+      const newArticle = Object.assign({}, article, {
+        tags: article.tags ? article.tags[0].split(',') : [],
+      });
+      return save(db, 'Article', newArticle);
     },
   },
 };
 
 export {
-  AddArticleMutation, DeleteArticleMutation,
+  AddArticleMutation,
+  DeleteArticleMutation,
 };

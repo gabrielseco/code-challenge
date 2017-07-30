@@ -61,8 +61,10 @@ export function addArticle(article) {
     tags: article.tags.map(tag => tag.name),
   };
 
+  const query = ARTICLE_CREATE_QUERY(articleToAdd);
+
   return dispatch => {
-    return request(ARTICLE_CREATE_QUERY(articleToAdd)).then(response => {
+    return request(query).then(response => {
       dispatch(addArticleToStore(response.data.createArticle));
       setTimeout(() => {
         dispatch(disableArticleMutation());
