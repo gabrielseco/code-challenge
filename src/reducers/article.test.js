@@ -1,5 +1,10 @@
 import { article as reducer, initialState } from './article';
-import { SET_ARTICLES, SET_ARTICLE, DELETE_ARTICLE } from '../actions/article';
+import {
+  SET_ARTICLES,
+  SET_ARTICLE,
+  DELETE_ARTICLE,
+  ADD_ARTICLE,
+} from '../actions/article';
 
 describe('Article reducer', () => {
   const article = {
@@ -44,9 +49,26 @@ describe('Article reducer', () => {
     expect(result.articles.length).toBe(1);
   });
 
+  it('should ADD_ARTICLE', () => {
+    const mockState = {
+      articles: [article],
+      article: [],
+      mutationArticle: false,
+    };
+    const action = {
+      type: ADD_ARTICLE,
+      payload: 0,
+    };
+    const result = reducer(mockState, action);
+
+    expect(result.articles.length).toBe(2);
+    expect(result.articleMutation).toBeTruthy();
+  });
+
   it('should go to defaultState', () => {
     const result = reducer(undefined, { type: 'any' });
     expect(result.article).toEqual([]);
     expect(result.articles).toEqual([]);
+    expect(article.articleMutation).toBeFalsy();
   });
 });

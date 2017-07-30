@@ -1,8 +1,15 @@
-import { SET_ARTICLES, SET_ARTICLE, DELETE_ARTICLE } from './../actions';
+import {
+  SET_ARTICLES,
+  SET_ARTICLE,
+  DELETE_ARTICLE,
+  ADD_ARTICLE,
+  DISABLE_MUTATION,
+} from './../actions';
 
 export const initialState = {
   articles: [],
   article: [],
+  articleMutation: false,
 };
 
 const article = (state = initialState, action) => {
@@ -24,6 +31,17 @@ const article = (state = initialState, action) => {
           ...state.articles.slice(0, action.payload),
           ...state.articles.slice(action.payload + 1),
         ],
+      };
+    case ADD_ARTICLE:
+      return {
+        ...state,
+        articles: [...state.articles, action.payload],
+        articleMutation: true,
+      };
+    case DISABLE_MUTATION:
+      return {
+        ...state,
+        articleMutation: false,
       };
     default:
       return state;

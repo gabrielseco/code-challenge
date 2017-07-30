@@ -29,3 +29,20 @@ export const ARTICLE_DELETE_QUERY = id => `
       tags
     }
 }`;
+
+export const ARTICLE_CREATE_QUERY = article => `
+  mutation newArticle {
+    createArticle(article: {
+      title: "${article.title}",
+      author: "${article.author}",
+      excerpt: "${article.excerpt}",
+      content: "${article.content}",
+      published: ${article.published}
+    }){
+      id,
+      title,
+      author,
+      excerpt,
+    }
+}
+`;

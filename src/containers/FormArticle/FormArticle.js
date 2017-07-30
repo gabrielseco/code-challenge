@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Tag } from './../../components';
 import Shared from './../../shared';
+import { addArticle } from './../../actions';
+
 import './FormArticle.css';
 
 class FormArticle extends Component {
@@ -29,9 +33,16 @@ class FormArticle extends Component {
     };
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.articleMutation) {
+      nextProps.history.push('/');
+    }
+  }
+
   onSubmit(event) {
     event.preventDefault();
-    this.setState({});
+    const { dispatch } = this.props;
+    dispatch(addArticle(this.state.form));
   }
 
   onChange(event) {
@@ -132,4 +143,15 @@ class FormArticle extends Component {
   }
 }
 
-export default FormArticle;
+FormArticle.propTypes = {
+  dispatch: PropTypes.func,
+  history: PropTypes.object,
+};
+
+const mapStateToProps = state => ({
+  articleMutation: state.article.articleMutation,
+});
+
+export { FormArticle as FormArticleTesting, mapStateToProps };
+
+export default connect(mapStateToProps)(FormArticle);

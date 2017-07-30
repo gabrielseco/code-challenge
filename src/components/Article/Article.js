@@ -113,7 +113,11 @@ class Article extends Component {
 }
 
 Article.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    excerpt: PropTypes.string.isRequired,
+  }).isRequired,
   onRemove: PropTypes.func.isRequired,
 };
 
