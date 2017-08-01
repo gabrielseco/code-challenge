@@ -8,7 +8,7 @@ import {
 
 export const initialState = {
   articles: [],
-  article: [],
+  article: null,
   articleMutation: false,
 };
 

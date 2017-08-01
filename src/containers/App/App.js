@@ -10,6 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.renderArticles = this.renderArticles.bind(this);
+    this.onEdit = this.onEdit.bind(this);
     this.onRemove = this.onRemove.bind(this);
   }
 
@@ -19,6 +20,10 @@ class App extends Component {
     dispatch(getArticles());
   }
 
+  onEdit(data) {
+    this.props.history.push(`/article/edit/${data.id}`);
+  }
+
   onRemove(article) {
     const { dispatch } = this.props;
     dispatch(deleteArticle(article));
@@ -26,7 +31,7 @@ class App extends Component {
 
   renderArticles() {
     return this.props.articles.map(article =>
-      <Article key={article.id} data={article} onRemove={this.onRemove} />,
+      <Article key={article.id} data={article} onRemove={this.onRemove} onEdit={this.onEdit} />,
     );
   }
 
@@ -58,6 +63,7 @@ App.defaultProps = {
 App.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.object),
   dispatch: PropTypes.func,
+  history: PropTypes.history,
 };
 
 export { App as AppTesting, mapStateToProps };

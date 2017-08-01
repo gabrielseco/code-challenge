@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, withRouter, Switch } from 'react-router
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
-import { App, FormArticle, Detail, NotFound } from './containers';
+import { AddArticle, App, Detail, EditArticle, NotFound } from './containers';
 import { Button, Header, Footer, ScrollToTop } from './components';
 import './index.css';
 
@@ -29,7 +29,8 @@ ReactDOM.render(
             <Switch>
               <Route exact path="/" component={App} />
               <Route path="/detail/:id" component={Detail} />
-              <Route path="/article/add" component={FormArticle} />
+              <Route path="/article/add" component={AddArticle} />
+              <Route path="/article/edit/:id" component={EditArticle} />
               <Route component={NotFound} />
             </Switch>
           </div>

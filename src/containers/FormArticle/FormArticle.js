@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Tag } from './../../components';
 import Shared from './../../shared';
-import { addArticle } from './../../actions';
-
 import './FormArticle.css';
 
 class FormArticle extends Component {
@@ -33,16 +30,18 @@ class FormArticle extends Component {
     };
   }
 
-  componentWillUpdate(nextProps) {
-    if (nextProps.articleMutation) {
-      nextProps.history.push('/');
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.article !== undefined) {
+      this.setState({
+        ...this.state,
+        form: nextProps.article,
+      });
     }
   }
 
   onSubmit(event) {
     event.preventDefault();
-    const { dispatch } = this.props;
-    dispatch(addArticle(this.state.form));
+    this.props.onSubmit(this.state.form);
   }
 
   onChange(event) {
@@ -76,7 +75,11 @@ class FormArticle extends Component {
   }
 
   writeTag(event) {
-    if (event.keyCode !== undefined && event.keyCode === 13 && this.state.tag.name !== '') {
+    if (
+      event.keyCode !== undefined &&
+      event.keyCode === 13 &&
+      this.state.tag.name !== ''
+    ) {
       event.preventDefault();
       const tags = [
         ...this.state.form.tags,
@@ -104,27 +107,36 @@ class FormArticle extends Component {
   render() {
     return (
       <div className="form-article">
-        <h1 className="text-center">Create a new article</h1>
+        { !this.props.edit
+          ? <h1 className="text-center">Create a new article</h1>
+          : <h1 className="text-center">Editing article</h1>
+        }
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="title">Title: </label>
-            <input type="text" onChange={this.onChange} name="title" />
+            <input type="text" onChange={this.onChange} name="title" value={this.state.form.title} />
           </div>
           <div className="form-group">
             <label htmlFor="author">Author: </label>
-            <input type="text" onChange={this.onChange} name="author" />
+            <input type="text" onChange={this.onChange} name="author" value={this.state.form.author} />
           </div>
           <div className="form-group">
             <label htmlFor="excerpt">Excerpt: </label>
-            <textarea type="text" onChange={this.onChange} name="excerpt" />
+            <textarea type="text" onChange={this.onChange} name="excerpt" value={this.state.form.excerpt} />
           </div>
           <div className="form-group">
             <label htmlFor="content">Content: </label>
-            <textarea type="text" onChange={this.onChange} name="content" />
+            <textarea type="text" onChange={this.onChange} name="content" value={this.state.form.content} />
           </div>
           <div className="form-group">
             <label htmlFor="tag">Tags: </label>
-            <input type="text" value={this.state.tag.name} onChange={this.onChangeTag} onKeyDown={this.writeTag} name="tag" />
+            <input
+              type="text"
+              value={this.state.tag.name}
+              onChange={this.onChangeTag}
+              onKeyDown={this.writeTag}
+              name="tag"
+            />
           </div>
           <div className="form-group">
             <label htmlFor="published">Published: </label>
@@ -145,14 +157,9 @@ class FormArticle extends Component {
 }
 
 FormArticle.propTypes = {
-  dispatch: PropTypes.func,
-  history: PropTypes.object,
+  article: PropTypes.object,
+  edit: PropTypes.bool,
+  onSubmit: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  articleMutation: state.article.articleMutation,
-});
-
-export { FormArticle as FormArticleTesting, mapStateToProps };
-
-export default connect(mapStateToProps)(FormArticle);
+export default FormArticle;

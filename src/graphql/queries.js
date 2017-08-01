@@ -17,6 +17,17 @@ export const ARTICLE_QUERY = id => `{
   }
 }`;
 
+export const ARTICLE_FULL_FIELDS = id => `{
+  articles(id: "${id}") {
+    author,
+    content,
+    excerpt,
+    published,
+    title,
+    tags
+  }
+}`;
+
 
 export const ARTICLE_DELETE_QUERY = id => `
   mutation delete { 

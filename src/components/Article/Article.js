@@ -49,7 +49,10 @@ class Article extends Component {
   }
 
   handleDocumentClick(event) {
-    if (this.state.visible && !events.targetIsDescendant(event, ReactDOM.findDOMNode(this))) {
+    if (
+      this.state.visible &&
+      !events.targetIsDescendant(event, ReactDOM.findDOMNode(this))
+    ) {
       this.setState({ visible: false });
     }
   }
@@ -98,7 +101,7 @@ class Article extends Component {
         <div className="flex">
           <button onClick={this.onRemove}>ACTIONS</button>
         </div>
-        <div className={classes.edit}>
+        <div className={classes.edit} onClick={() => this.props.onEdit(data)}>
           <h3>Edit</h3>
         </div>
         <div
@@ -118,6 +121,7 @@ Article.propTypes = {
     author: PropTypes.string.isRequired,
     excerpt: PropTypes.string.isRequired,
   }).isRequired,
+  onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };
 

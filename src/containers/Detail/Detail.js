@@ -54,7 +54,7 @@ class Detail extends Component {
 }
 
 const mapStateToProps = state => ({
-  article: state.article.article[0],
+  article: state.article.article,
 });
 
 Detail.propTypes = {
