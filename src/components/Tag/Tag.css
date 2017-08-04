@@ -7,6 +7,37 @@
   height: 50px;
   margin-right: 20px;
   margin-bottom: 10px;
+  min-width: 200px;
   padding: 7px 12px;
-  width: calc(100% / 5);
+  position: relative;
+}
+
+
+.delete-icon {
+  position: absolute;
+  right: 0;
+  top: 1px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.6;
+}
+
+.delete-icon:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.delete-icon:before, .delete-icon:after {
+  position: absolute;
+  left: 20px;
+  content: ' ';
+  height: 20px;
+  width: 2px;
+  background-color: #FFF;
+}
+.delete-icon:before {
+  transform: rotate(45deg);
+}
+.delete-icon:after {
+  transform: rotate(-45deg);
 }

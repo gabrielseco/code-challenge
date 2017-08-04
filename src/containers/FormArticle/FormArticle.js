@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tag } from './../../components';
 import Shared from './../../shared';
+
 import './FormArticle.css';
 
 class FormArticle extends Component {
@@ -13,6 +14,7 @@ class FormArticle extends Component {
     this.onChangeTag = this.onChangeTag.bind(this);
     this.writeTag = this.writeTag.bind(this);
     this.renderTags = this.renderTags.bind(this);
+    this.onRemove = this.onRemove.bind(this);
 
     this.state = {
       tag: {
@@ -20,6 +22,7 @@ class FormArticle extends Component {
         name: '',
       },
       form: {
+        id: null,
         title: '',
         author: '',
         excerpt: '',
@@ -66,10 +69,23 @@ class FormArticle extends Component {
     this.setState({
       tag: {
         name: event.target.value,
-        color: Shared.getColor() || this.state.tag.color,
+        color: this.state.tag.color || Shared.getColor(),
       },
       form: {
         ...this.state.form,
+      },
+    });
+  }
+
+  onRemove(evt) {
+    this.setState({
+      ...this.state,
+      form: {
+        ...this.state.form,
+        tags: [
+          ...this.state.form.tags.slice(0, evt.index),
+          ...this.state.form.tags.slice(evt.index + 1),
+        ],
       },
     });
   }
@@ -100,33 +116,61 @@ class FormArticle extends Component {
 
   renderTags() {
     return this.state.form.tags.map((tag, index) => {
-      return <Tag key={index} name={tag.name} color={tag.color} />;
+      return (
+        <Tag
+          key={index}
+          index={index}
+          name={tag.name}
+          color={tag.color}
+          onRemove={this.onRemove}
+        />
+      );
     });
   }
 
   render() {
+    const buttonText = this.props.edit ? 'Update' : 'Send';
     return (
       <div className="form-article">
-        { !this.props.edit
+        {!this.props.edit
           ? <h1 className="text-center">Create a new article</h1>
-          : <h1 className="text-center">Editing article</h1>
-        }
+          : <h1 className="text-center">Editing article</h1>}
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="title">Title: </label>
-            <input type="text" onChange={this.onChange} name="title" value={this.state.form.title} />
+            <input
+              type="text"
+              onChange={this.onChange}
+              name="title"
+              value={this.state.form.title}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="author">Author: </label>
-            <input type="text" onChange={this.onChange} name="author" value={this.state.form.author} />
+            <input
+              type="text"
+              onChange={this.onChange}
+              name="author"
+              value={this.state.form.author}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="excerpt">Excerpt: </label>
-            <textarea type="text" onChange={this.onChange} name="excerpt" value={this.state.form.excerpt} />
+            <textarea
+              type="text"
+              onChange={this.onChange}
+              name="excerpt"
+              value={this.state.form.excerpt}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="content">Content: </label>
-            <textarea type="text" onChange={this.onChange} name="content" value={this.state.form.content} />
+            <textarea
+              type="text"
+              onChange={this.onChange}
+              name="content"
+              value={this.state.form.content}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="tag">Tags: </label>
@@ -149,7 +193,7 @@ class FormArticle extends Component {
           <div className="tags">
             {this.renderTags()}
           </div>
-          <input type="submit" value="SEND" />
+          <input type="submit" value={buttonText} />
         </form>
       </div>
     );

@@ -19,8 +19,8 @@ class Detail extends Component {
 
   renderTags() {
     if (this.props.article.tags !== undefined) {
-      return this.props.article.tags.map(tag =>
-        <Tag key={tag} name={tag} color={Shared.getColor()} />,
+      return this.props.article.tags.map((tag, index) =>
+        <Tag key={index} index={index} name={tag.name} color={Shared.getColor()} />,
       );
     }
     return null;
@@ -28,7 +28,7 @@ class Detail extends Component {
 
   // Renders
   render() {
-    if (this.props.article === undefined) {
+    if (this.props.article === undefined || this.props.article === null) {
       return <div>Loading</div>;
     }
     return (

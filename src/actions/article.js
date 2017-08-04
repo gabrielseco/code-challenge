@@ -15,11 +15,13 @@ export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 export const ADD_ARTICLE = 'ADD_ARTICLE';
 export const DISABLE_MUTATION = 'DISABLE_MUTATION';
 
+const formatTag = tag => ({
+  name: tag,
+  color: Shared.getColor(),
+});
+
 function formatArticle(article) {
-  const tags = article.tags.map(tag => ({
-    name: tag,
-    color: Shared.getColor(),
-  }));
+  const tags = article.tags.map(tag => formatTag(tag));
   return {
     ...article,
     tags,
@@ -64,7 +66,8 @@ export function getArticles() {
 export function getArticle(id) {
   return dispatch => {
     return request(ARTICLE_QUERY(id)).then(response => {
-      dispatch(setData(SET_ARTICLE, response.data.articles[0]));
+      const article = formatArticle(response.data.articles[0]);
+      dispatch(setData(SET_ARTICLE, article));
     });
   };
 }
@@ -79,8 +82,9 @@ export function getArticleEdition(id) {
 }
 
 export function addArticle(article) {
+  const { id, ...rest } = article;
   const articleToAdd = {
-    ...article,
+    ...rest,
     tags: article.tags.map(tag => tag.name),
   };
 
@@ -94,6 +98,10 @@ export function addArticle(article) {
       }, 500);
     });
   };
+}
+
+export function editArticle(article) {
+  console.log('article', article);
 }
 
 export function deleteArticle(article) {

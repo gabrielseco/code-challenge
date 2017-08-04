@@ -26,8 +26,9 @@ class EditArticle extends Component {
   }
 
   onSubmit(event) {
-    const { dispatch } = this.props;
-    dispatch(addArticle(event));
+    // const { dispatch } = this.props;
+    // dispatch(addArticle(event));
+    console.log('event', event);
   }
 
   render() {

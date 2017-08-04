@@ -19,6 +19,7 @@ export const ARTICLE_QUERY = id => `{
 
 export const ARTICLE_FULL_FIELDS = id => `{
   articles(id: "${id}") {
+    id,
     author,
     content,
     excerpt,
