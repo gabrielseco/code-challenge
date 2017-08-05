@@ -3,7 +3,7 @@ import {
   GraphQLSchema,
 } from 'graphql';
 import { ArticlesQuery } from './queries';
-import { AddArticleMutation, DeleteArticleMutation } from './mutations';
+import { AddArticleMutation, DeleteArticleMutation, EditArticleMutation } from './mutations';
 
 const Query = new GraphQLObjectType({
   name: 'Query',
@@ -19,6 +19,7 @@ const Mutation = new GraphQLObjectType({
   fields: () => ({
     ...AddArticleMutation,
     ...DeleteArticleMutation,
+    ...EditArticleMutation,
   }),
 });
 

@@ -5,6 +5,7 @@ import {
   ARTICLE_FULL_FIELDS,
   ARTICLE_DELETE_QUERY,
   ARTICLE_CREATE_QUERY,
+  ARTICLE_EDIT_QUERY,
 } from './../graphql';
 
 import Shared from './../shared';
@@ -14,6 +15,7 @@ export const SET_ARTICLE = 'SET_ARTICLE';
 export const DELETE_ARTICLE = 'DELETE_ARTICLE';
 export const ADD_ARTICLE = 'ADD_ARTICLE';
 export const DISABLE_MUTATION = 'DISABLE_MUTATION';
+export const EDIT_ARTICLE = 'EDIT_ARTICLE';
 
 const formatTag = tag => ({
   name: tag,
@@ -45,6 +47,13 @@ function removeArticle(index) {
 function addArticleToStore(article) {
   return {
     type: ADD_ARTICLE,
+    payload: article,
+  };
+}
+
+function editArticleToStore(article) {
+  return {
+    type: EDIT_ARTICLE,
     payload: article,
   };
 }
@@ -85,6 +94,8 @@ export function addArticle(article) {
   const { id, ...rest } = article;
   const articleToAdd = {
     ...rest,
+    content: article.content.trim(),
+    excerpt: article.excerpt.trim(),
     tags: article.tags.map(tag => tag.name),
   };
 
@@ -101,7 +112,23 @@ export function addArticle(article) {
 }
 
 export function editArticle(article) {
-  console.log('article', article);
+  const articleToEdit = {
+    ...article,
+    content: article.content.trim(),
+    excerpt: article.excerpt.trim(),
+    tags: article.tags.map(tag => tag.name),
+  };
+
+  const query = ARTICLE_EDIT_QUERY(articleToEdit);
+
+  return dispatch => {
+    return request(query).then(response => {
+      dispatch(editArticleToStore(response.data.updateArticle));
+      setTimeout(() => {
+        dispatch(disableArticleMutation());
+      }, 500);
+    });
+  };
 }
 
 export function deleteArticle(article) {

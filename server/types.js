@@ -4,7 +4,6 @@ import {
   GraphQLString,
   GraphQLList,
   GraphQLInputObjectType,
-  GraphQLInt,
   GraphQLNonNull,
 } from 'graphql';
 
@@ -39,7 +38,7 @@ const ArticleType = new GraphQLObjectType({
 const ArticleInputType = new GraphQLInputObjectType({
   name: 'ArticleInput',
   fields: () => ({
-    id: { type: GraphQLInt },
+    id: { type: GraphQLString },
     title: { type: new GraphQLNonNull(GraphQLString) },
     author: { type: new GraphQLNonNull(GraphQLString) },
     excerpt: { type: new GraphQLNonNull(GraphQLString) },
@@ -49,7 +48,21 @@ const ArticleInputType = new GraphQLInputObjectType({
   }),
 });
 
+const ArticleInputAttributesType = new GraphQLInputObjectType({
+  name: 'ArticleInputAttributesType',
+  fields: () => ({
+    id: { type: GraphQLString },
+    title: { type: GraphQLString },
+    author: { type: GraphQLString },
+    excerpt: { type: GraphQLString },
+    content: { type: GraphQLString },
+    published: { type: GraphQLBoolean },
+    tags: { type: new GraphQLList(GraphQLString) },
+  }),
+});
+
 export {
   ArticleType,
   ArticleInputType,
+  ArticleInputAttributesType,
 };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormArticle } from './../FormArticle';
-import { addArticle, getArticleEdition } from './../../actions';
+import { editArticle, getArticleEdition } from './../../actions';
 
 class EditArticle extends Component {
   // definition
@@ -26,8 +26,8 @@ class EditArticle extends Component {
   }
 
   onSubmit(event) {
-    // const { dispatch } = this.props;
-    // dispatch(addArticle(event));
+    const { dispatch } = this.props;
+    dispatch(editArticle(event));
     console.log('event', event);
   }
 

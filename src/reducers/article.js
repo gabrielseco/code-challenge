@@ -4,6 +4,7 @@ import {
   DELETE_ARTICLE,
   ADD_ARTICLE,
   DISABLE_MUTATION,
+  EDIT_ARTICLE,
 } from './../actions';
 
 export const initialState = {
@@ -36,6 +37,11 @@ const article = (state = initialState, action) => {
       return {
         ...state,
         articles: [...state.articles, action.payload],
+        articleMutation: true,
+      };
+    case EDIT_ARTICLE:
+      return {
+        ...state,
         articleMutation: true,
       };
     case DISABLE_MUTATION:
