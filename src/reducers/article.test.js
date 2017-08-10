@@ -3,7 +3,8 @@ import {
   SET_ARTICLES,
   SET_ARTICLE,
   DELETE_ARTICLE,
-  ADD_ARTICLE,
+  DISABLE_MUTATION,
+  ENABLE_MUTATION,
 } from '../actions/article';
 
 describe('Article reducer', () => {
@@ -21,7 +22,7 @@ describe('Article reducer', () => {
     const result = reducer(initialState, action);
 
     expect(result.articles).toEqual([article]);
-    expect(result.article).toEqual([]);
+    expect(result.article).toBeNull();
   });
 
   it('should SET_ARTICLE', () => {
@@ -49,26 +50,40 @@ describe('Article reducer', () => {
     expect(result.articles.length).toBe(1);
   });
 
-  it('should ADD_ARTICLE', () => {
+  it('should DISABLE_MUTATION', () => {
+    const mockState = {
+      articles: [article],
+      article: [],
+      mutationArticle: true,
+    };
+    const action = {
+      type: DISABLE_MUTATION,
+    };
+    const result = reducer(mockState, action);
+
+    expect(result.articles.length).toBe(1);
+    expect(result.articleMutation).toBeFalsy();
+  });
+
+  it('should ENABLE_MUTATION', () => {
     const mockState = {
       articles: [article],
       article: [],
       mutationArticle: false,
     };
     const action = {
-      type: ADD_ARTICLE,
-      payload: 0,
+      type: ENABLE_MUTATION,
     };
     const result = reducer(mockState, action);
 
-    expect(result.articles.length).toBe(2);
+    expect(result.articles.length).toBe(1);
     expect(result.articleMutation).toBeTruthy();
   });
 
   it('should go to defaultState', () => {
     const result = reducer(undefined, { type: 'any' });
-    expect(result.article).toEqual([]);
     expect(result.articles).toEqual([]);
+    expect(result.article).toBeNull();
     expect(article.articleMutation).toBeFalsy();
   });
 });

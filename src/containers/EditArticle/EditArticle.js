@@ -8,9 +8,7 @@ class EditArticle extends Component {
   // definition
   constructor(props) {
     super(props);
-    this.state = {
-      article: null,
-    };
+    this.state = {};
   }
 
   componentWillMount() {
@@ -28,7 +26,6 @@ class EditArticle extends Component {
   onSubmit(event) {
     const { dispatch } = this.props;
     dispatch(editArticle(event));
-    console.log('event', event);
   }
 
   render() {
@@ -53,6 +50,6 @@ EditArticle.propTypes = {
   match: PropTypes.object,
 };
 
-export { EditArticle as EditArticleTesting };
+export { EditArticle as EditArticleTesting, mapStateToProps };
 
 export default connect(mapStateToProps)(EditArticle);

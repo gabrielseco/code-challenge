@@ -63,7 +63,7 @@ App.defaultProps = {
 App.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.object),
   dispatch: PropTypes.func,
-  history: PropTypes.history,
+  history: PropTypes.object,
 };
 
 export { App as AppTesting, mapStateToProps };

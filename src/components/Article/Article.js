@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import applyClasses from 'apply-classes';
-import events from './../../utils';
+import utils from './../../utils';
 import './Article.css';
 
 class Article extends Component {
@@ -14,31 +14,25 @@ class Article extends Component {
     };
     this.handleDocumentClick = this.handleDocumentClick.bind(this);
     this.generateClasses = this.generateClasses.bind(this);
-    this.onRemove = this.onRemove.bind(this);
+    this.openActions = this.openActions.bind(this);
   }
 
   componentWillUpdate(nextProps, nextState) {
     if (!this.state.visible && nextState.visible) {
-      events.addEventsToDocument(this.getDocumentEvents());
+      utils.addEventsToDocument(this.getDocumentEvents());
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.visible && !this.state.visible) {
-      events.removeEventsFromDocument(this.getDocumentEvents());
+      utils.removeEventsFromDocument(this.getDocumentEvents());
     }
   }
 
   componentWillUnmount() {
     if (this.state.visible) {
-      events.removeEventsFromDocument(this.getDocumentEvents());
+      utils.removeEventsFromDocument(this.getDocumentEvents());
     }
-  }
-
-  onRemove() {
-    this.setState({
-      visible: true,
-    });
   }
 
   getDocumentEvents() {
@@ -51,10 +45,16 @@ class Article extends Component {
   handleDocumentClick(event) {
     if (
       this.state.visible &&
-      !events.targetIsDescendant(event, ReactDOM.findDOMNode(this))
+      !utils.targetIsDescendant(event, ReactDOM.findDOMNode(this))
     ) {
       this.setState({ visible: false });
     }
+  }
+
+  openActions() {
+    this.setState({
+      visible: true,
+    });
   }
 
   remove(event, data) {
@@ -99,7 +99,7 @@ class Article extends Component {
           {data.excerpt}
         </p>
         <div className="flex">
-          <button onClick={this.onRemove}>ACTIONS</button>
+          <button onClick={this.openActions}>ACTIONS</button>
         </div>
         <div className={classes.edit} onClick={() => this.props.onEdit(data)}>
           <h3>Edit</h3>
@@ -115,12 +115,14 @@ class Article extends Component {
   }
 }
 
+const ArticlePropTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  excerpt: PropTypes.string.isRequired,
+};
+
 Article.propTypes = {
-  data: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    excerpt: PropTypes.string.isRequired,
-  }).isRequired,
+  data: PropTypes.shape(ArticlePropTypes).isRequired,
   onEdit: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };

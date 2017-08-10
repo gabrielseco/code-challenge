@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tag } from './../../components';
-import Shared from './../../shared';
+import shared from './../../shared';
 
 import './FormArticle.css';
 
@@ -69,7 +69,7 @@ class FormArticle extends Component {
     this.setState({
       tag: {
         name: event.target.value,
-        color: this.state.tag.color || Shared.getColor(),
+        color: this.state.tag.color || shared.getColor(),
       },
       form: {
         ...this.state.form,

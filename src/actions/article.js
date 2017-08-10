@@ -8,18 +8,17 @@ import {
   ARTICLE_EDIT_QUERY,
 } from './../graphql';
 
-import Shared from './../shared';
+import shared from './../shared';
 
 export const SET_ARTICLES = 'SET_ARTICLES';
 export const SET_ARTICLE = 'SET_ARTICLE';
 export const DELETE_ARTICLE = 'DELETE_ARTICLE';
-export const ADD_ARTICLE = 'ADD_ARTICLE';
+export const ENABLE_MUTATION = 'ENABLE_MUTATION';
 export const DISABLE_MUTATION = 'DISABLE_MUTATION';
-export const EDIT_ARTICLE = 'EDIT_ARTICLE';
 
 const formatTag = tag => ({
   name: tag,
-  color: Shared.getColor(),
+  color: shared.getColor(),
 });
 
 function formatArticle(article) {
@@ -44,21 +43,13 @@ function removeArticle(index) {
   };
 }
 
-function addArticleToStore(article) {
+function enableMutation() {
   return {
-    type: ADD_ARTICLE,
-    payload: article,
+    type: ENABLE_MUTATION,
   };
 }
 
-function editArticleToStore(article) {
-  return {
-    type: EDIT_ARTICLE,
-    payload: article,
-  };
-}
-
-function disableArticleMutation() {
+function disableMutation() {
   return {
     type: DISABLE_MUTATION,
   };
@@ -102,10 +93,10 @@ export function addArticle(article) {
   const query = ARTICLE_CREATE_QUERY(articleToAdd);
 
   return dispatch => {
-    return request(query).then(response => {
-      dispatch(addArticleToStore(response.data.createArticle));
+    return request(query).then(() => {
+      dispatch(enableMutation());
       setTimeout(() => {
-        dispatch(disableArticleMutation());
+        dispatch(disableMutation());
       }, 500);
     });
   };
@@ -122,10 +113,10 @@ export function editArticle(article) {
   const query = ARTICLE_EDIT_QUERY(articleToEdit);
 
   return dispatch => {
-    return request(query).then(response => {
-      dispatch(editArticleToStore(response.data.updateArticle));
+    return request(query).then(() => {
+      dispatch(enableMutation());
       setTimeout(() => {
-        dispatch(disableArticleMutation());
+        dispatch(disableMutation());
       }, 500);
     });
   };

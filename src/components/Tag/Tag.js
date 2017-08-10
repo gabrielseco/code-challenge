@@ -5,17 +5,16 @@ import './Tag.css';
 const Tag = props => {
   const renderCloseTag = () => {
     if (props.onRemove) {
-      return <span className="delete-icon" />;
+      return <span onClick={removeTag} className="delete-icon" />;
     }
     return null;
   };
   const removeTag = () => {
-    if (props.onRemove) props.onRemove(props);
+    props.onRemove(props);
   };
   return (
     <div
       className="tag"
-      onClick={removeTag}
       style={{ backgroundColor: props.color }}
     >
       {renderCloseTag()}

@@ -37,6 +37,6 @@ AddArticle.propTypes = {
   dispatch: PropTypes.func,
 };
 
-export { AddArticle as AddArticleTesting };
+export { AddArticle as AddArticleTesting, mapStateToProps };
 
 export default connect(mapStateToProps)(AddArticle);

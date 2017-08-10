@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getArticle } from './../../actions';
 import { Tag } from './../../components';
-import Shared from './../../shared';
+import shared from './../../shared';
 import './Detail.css';
 
 class Detail extends Component {
@@ -20,7 +20,7 @@ class Detail extends Component {
   renderTags() {
     if (this.props.article.tags !== undefined) {
       return this.props.article.tags.map((tag, index) =>
-        <Tag key={index} index={index} name={tag.name} color={Shared.getColor()} />,
+        <Tag key={index} index={index} name={tag.name} color={shared.getColor()} />,
       );
     }
     return null;

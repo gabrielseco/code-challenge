@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { DetailTesting, mapStateToProps } from './Detail';
+import { Tag } from './../../components';
 
 const dispatch = jest.fn();
 const match = {
@@ -16,11 +17,11 @@ const articleMock = {
   published: false,
 };
 const author = `By: ${articleMock.author}`;
-const published = `Published: ${articleMock.published ? 'Yes' : 'No'}`;
+const published = article => `Published: ${article.published ? 'Yes' : 'No'}`;
 
 
-describe('App suite', () => {
-  it('renders App without any state injected', () => {
+describe('Detail suite', () => {
+  it('renders Detail without any state injected', () => {
     const wrapper = shallow(<DetailTesting dispatch={dispatch} match={match} />);
 
     expect(wrapper).toBeDefined();
@@ -35,7 +36,7 @@ describe('App suite', () => {
     expect(wrapper.find('.detail .title').text()).toBe(articleMock.title);
     expect(wrapper.find('.detail .author').text()).toBe(author);
     expect(wrapper.find('.detail .content').text()).toBe(articleMock.content);
-    expect(wrapper.find('.detail .published').text()).toBe(published);
+    expect(wrapper.find('.detail .published').text()).toBe(published(articleMock));
   });
 
   it('should inject article as prop and render published as Yes', () => {
@@ -50,37 +51,39 @@ describe('App suite', () => {
     expect(wrapper.find('.detail .title').text()).toBe(articleMock.title);
     expect(wrapper.find('.detail .author').text()).toBe(author);
     expect(wrapper.find('.detail .content').text()).toBe(articleMock.content);
-    expect(wrapper.find('.detail .published').text()).toBe(published);
+    expect(wrapper.find('.detail .published').text()).toBe(published(articleMock2));
   });
 
   it('should inject article as prop and render published as No and render two tags', () => {
     const articleMock2 = {
       ...articleMock,
       tags: [
-        'React',
-        'Testing',
+        {
+          name: 'React',
+        },
+        {
+          name: 'Testing',
+        },
       ],
     };
     const node = <DetailTesting dispatch={dispatch} match={match} article={articleMock2} />;
     const wrapper = shallow(node);
-    const tags = wrapper.find('.detail .tags > p');
+    const tags = wrapper.find(Tag);
 
     expect(wrapper).toBeDefined();
     expect(wrapper.find('.detail .title').text()).toBe(articleMock.title);
     expect(wrapper.find('.detail .author').text()).toBe(author);
     expect(wrapper.find('.detail .content').text()).toBe(articleMock.content);
-    expect(wrapper.find('.detail .published').text()).toBe(published);
+    expect(wrapper.find('.detail .published').text()).toBe(published(articleMock));
     expect(tags.length).toBe(2);
-    expect(tags.at(0).text()).toBe(articleMock2.tags[0]);
-    expect(tags.at(1).text()).toBe(articleMock2.tags[1]);
+    expect(tags.at(0).prop('name')).toBe(articleMock2.tags[0].name);
+    expect(tags.at(1).prop('name')).toBe(articleMock2.tags[1].name);
   });
 
   it('should test mapStateToProps', () => {
     const mock = {
       article: {
-        article: [
-          {},
-        ],
+        article: {},
       },
     };
     expect(mapStateToProps(mock)).toEqual({

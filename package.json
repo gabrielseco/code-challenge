@@ -28,6 +28,7 @@
     "redux-mock-store": "^1.2.3"
   },
   "scripts": {
+    "coverage:open": "open ./coverage/lcov-report/index.html",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --coverage",
