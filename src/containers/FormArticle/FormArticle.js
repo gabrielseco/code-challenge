@@ -188,6 +188,7 @@ class FormArticle extends Component {
               type="checkbox"
               onChange={this.onChangeCheckBox}
               name="published"
+              checked={this.state.form.published}
             />
           </div>
           <div className="tags">

@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Link } from 'react-router-dom';
 import Article from './Article';
+import utils from './../../utils';
 
 describe('Article suite', () => {
   const articleMock = {
@@ -69,5 +70,108 @@ describe('Article suite', () => {
     expect(wrapper.state().visible).toBeTruthy();
     expect(wrapper.find('.edit-action').hasClass('visible')).toBeTruthy();
     expect(wrapper.find('.delete-action').hasClass('visible')).toBeTruthy();
+  });
+
+  it('should call componentWillUpdate', () => {
+    const spy = jest.spyOn(utils, 'addEventsToDocument');
+    const wrapper = shallow(
+      <Article
+        data={articleMock}
+        onRemove={onRemoveHandler}
+        onEdit={onEditHandler}
+      />,
+    );
+
+    wrapper.instance().componentWillUpdate(undefined, {
+      visible: true,
+    });
+    expect(spy).toHaveBeenCalled();
+    spy.mockReset();
+    spy.mockRestore();
+  });
+
+  it('should not call componentWillUpdate', () => {
+    const spy = jest.spyOn(utils, 'addEventsToDocument');
+    const wrapper = shallow(
+      <Article
+        data={articleMock}
+        onRemove={onRemoveHandler}
+        onEdit={onEditHandler}
+      />,
+    );
+
+    wrapper.instance().componentWillUpdate(undefined, {
+      visible: false,
+    });
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockReset();
+    spy.mockRestore();
+  });
+
+  it('should call componentDidUpdate', () => {
+    const spy = jest.spyOn(utils, 'removeEventsFromDocument');
+    const wrapper = shallow(
+      <Article
+        data={articleMock}
+        onRemove={onRemoveHandler}
+        onEdit={onEditHandler}
+      />,
+    );
+
+    wrapper.instance().componentDidUpdate(undefined, {
+      visible: true,
+    });
+    expect(spy).toHaveBeenCalled();
+    spy.mockReset();
+    spy.mockRestore();
+  });
+
+  it('should not call componentDidUpdate', () => {
+    const spy = jest.spyOn(utils, 'removeEventsFromDocument');
+    const wrapper = shallow(
+      <Article
+        data={articleMock}
+        onRemove={onRemoveHandler}
+        onEdit={onEditHandler}
+      />,
+    );
+
+    wrapper.instance().componentDidUpdate(undefined, {
+      visible: false,
+    });
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockReset();
+    spy.mockRestore();
+  });
+
+  it('should call componentWillUnmount', () => {
+    const spy = jest.spyOn(utils, 'removeEventsFromDocument');
+    const wrapper = shallow(
+      <Article
+        data={articleMock}
+        onRemove={onRemoveHandler}
+        onEdit={onEditHandler}
+      />,
+    );
+    wrapper.instance().openActions();
+    wrapper.instance().componentWillUnmount();
+    expect(spy).toHaveBeenCalled();
+    spy.mockReset();
+    spy.mockRestore();
+  });
+
+  it('should not call componentWillUnmount', () => {
+    const spy = jest.spyOn(utils, 'removeEventsFromDocument');
+    const wrapper = shallow(
+      <Article
+        data={articleMock}
+        onRemove={onRemoveHandler}
+        onEdit={onEditHandler}
+      />,
+    );
+    wrapper.instance().componentWillUnmount();
+    expect(spy).not.toHaveBeenCalled();
+    spy.mockReset();
+    spy.mockRestore();
   });
 });
