@@ -2,7 +2,9 @@
   "data": {
     "articles": [
       {
-        "author": "Jude Jacobson"
+        "title": "Going React",
+        "author": "Jude Jacobson",
+        "tags": ["React", "GraphQL"]
       }
     ]
   }

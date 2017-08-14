@@ -29,6 +29,15 @@ function formatArticle(article) {
   };
 }
 
+function formatArticleGraphQL(article) {
+  return {
+    ...article,
+    content: article.content.trim(),
+    excerpt: article.excerpt.trim(),
+    tags: article.tags.map(tag => tag.name),
+  };
+}
+
 function setData(type, articles) {
   return {
     type,
@@ -83,12 +92,7 @@ export function getArticleEdition(id) {
 
 export function addArticle(article) {
   const { id, ...rest } = article;
-  const articleToAdd = {
-    ...rest,
-    content: article.content.trim(),
-    excerpt: article.excerpt.trim(),
-    tags: article.tags.map(tag => tag.name),
-  };
+  const articleToAdd = formatArticleGraphQL({ ...rest });
 
   const query = ARTICLE_CREATE_QUERY(articleToAdd);
 
@@ -103,12 +107,7 @@ export function addArticle(article) {
 }
 
 export function editArticle(article) {
-  const articleToEdit = {
-    ...article,
-    content: article.content.trim(),
-    excerpt: article.excerpt.trim(),
-    tags: article.tags.map(tag => tag.name),
-  };
+  const articleToEdit = formatArticleGraphQL(article);
 
   const query = ARTICLE_EDIT_QUERY(articleToEdit);
 

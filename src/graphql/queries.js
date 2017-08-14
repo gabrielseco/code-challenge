@@ -76,6 +76,6 @@ export const ARTICLE_EDIT_QUERY = article => `
       author,
       excerpt,
     }
-}
+  }
 `;
 

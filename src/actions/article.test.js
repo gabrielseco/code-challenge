@@ -6,12 +6,13 @@ import httpAdapter from 'axios/lib/adapters/http';
 import {
   getArticles,
   getArticle,
+  getArticleEdition,
   deleteArticle,
   SET_ARTICLES,
   SET_ARTICLE,
   DELETE_ARTICLE,
 } from './article';
-import { ARTICLES_QUERY, ARTICLE_QUERY, ARTICLE_DELETE_QUERY } from './../graphql';
+import { ARTICLES_QUERY, ARTICLE_QUERY, ARTICLE_FULL_FIELDS, ARTICLE_DELETE_QUERY } from './../graphql';
 import articleFake from './article.fake.json';
 
 const middlewares = [thunk];
@@ -59,11 +60,31 @@ describe('article actions', () => {
       .reply(200, articleFake);
 
     const expectedActions = [
-      { type: SET_ARTICLE, payload: articleFake.data.articles },
+      { type: SET_ARTICLE, payload: articleFake.data.articles[0] },
     ];
     const store = mockStore(createStore);
     return store.dispatch(getArticle('5974452d72f1dc0938a2109f')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual(expectedActions[0].type);
+      expect(actions[0].payload.title).toBe(expectedActions[0].payload.title);
+      expect(actions[0].payload.tags[0].name).toBe(expectedActions[0].payload.tags[0]);
+    });
+  });
+
+  it('creates SET_ARTICLE when fetching article for edition has been done', () => {
+    nock(host)
+      .post('/graphql', { query: ARTICLE_FULL_FIELDS('5974452d72f1dc0938a2109f') })
+      .reply(200, articleFake);
+
+    const expectedActions = [
+      { type: SET_ARTICLE, payload: articleFake.data.articles[0] },
+    ];
+    const store = mockStore(createStore);
+    return store.dispatch(getArticleEdition('5974452d72f1dc0938a2109f')).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual(expectedActions[0].type);
+      expect(actions[0].payload.title).toBe(expectedActions[0].payload.title);
+      expect(actions[0].payload.tags[0].name).toBe(expectedActions[0].payload.tags[0]);
     });
   });
 
