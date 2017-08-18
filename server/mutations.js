@@ -19,7 +19,7 @@ const AddArticleMutation = {
     },
     resolve: async (value, { article }) => {
       const newArticle = Object.assign({}, article, {
-        tags: article.tags ? article.tags[0].split(',') : [],
+        tags: article.tags && article.tags[0] ? article.tags[0].split(',') : [],
       });
       return await save(db, 'Article', newArticle);
     },
@@ -48,7 +48,7 @@ const EditArticleMutation = {
     },
     resolve: async (value, { article }) => {
       const newArticle = Object.assign({}, article, {
-        tags: article.tags ? article.tags[0].split(',') : [],
+        tags: article.tags && article.tags[0] ? article.tags[0].split(',') : [],
       });
       return await update(db, 'Article', newArticle);
     },

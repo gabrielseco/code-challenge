@@ -95,10 +95,10 @@ class Article extends Component {
         <h3 className="author">
           {data.author}
         </h3>
-        <p className="excerpt">
+        <p className="flex-1 excerpt">
           {data.excerpt}
         </p>
-        <div className="flex">
+        <div className="flex flex-end">
           <button onClick={this.openActions}>ACTIONS</button>
         </div>
         <div className={classes.edit} onClick={() => this.props.onEdit(data)}>
