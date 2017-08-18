@@ -4,6 +4,8 @@
       {
         "title": "Going React",
         "author": "Jude Jacobson",
+        "excerpt": "Test",
+        "content": "Test",
         "tags": ["React", "GraphQL"]
       }
     ]

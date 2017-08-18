@@ -4,15 +4,27 @@ import nock from 'nock';
 import axios from 'axios';
 import httpAdapter from 'axios/lib/adapters/http';
 import {
+  addArticle,
+  editArticle,
+  formatArticleGraphQL,
   getArticles,
   getArticle,
   getArticleEdition,
   deleteArticle,
+  ENABLE_MUTATION,
+  DISABLE_MUTATION,
   SET_ARTICLES,
   SET_ARTICLE,
   DELETE_ARTICLE,
 } from './article';
-import { ARTICLES_QUERY, ARTICLE_QUERY, ARTICLE_FULL_FIELDS, ARTICLE_DELETE_QUERY } from './../graphql';
+import {
+  ARTICLES_QUERY,
+  ARTICLE_QUERY,
+  ARTICLE_FULL_FIELDS,
+  ARTICLE_DELETE_QUERY,
+  ARTICLE_CREATE_QUERY,
+  ARTICLE_EDIT_QUERY,
+} from './../graphql';
 import articleFake from './article.fake.json';
 
 const middlewares = [thunk];
@@ -28,12 +40,12 @@ const article = {
 
 const createStore = () => ({
   article: {
-    articles: [
-      article,
-    ],
+    articles: [article],
     article: [],
   },
 });
+
+jest.useFakeTimers();
 
 describe('article actions', () => {
   afterEach(() => {
@@ -67,39 +79,82 @@ describe('article actions', () => {
       const actions = store.getActions();
       expect(actions[0].type).toEqual(expectedActions[0].type);
       expect(actions[0].payload.title).toBe(expectedActions[0].payload.title);
-      expect(actions[0].payload.tags[0].name).toBe(expectedActions[0].payload.tags[0]);
+      expect(actions[0].payload.tags[0].name).toBe(
+        expectedActions[0].payload.tags[0],
+      );
     });
   });
 
   it('creates SET_ARTICLE when fetching article for edition has been done', () => {
     nock(host)
-      .post('/graphql', { query: ARTICLE_FULL_FIELDS('5974452d72f1dc0938a2109f') })
+      .post('/graphql', {
+        query: ARTICLE_FULL_FIELDS('5974452d72f1dc0938a2109f'),
+      })
       .reply(200, articleFake);
 
     const expectedActions = [
       { type: SET_ARTICLE, payload: articleFake.data.articles[0] },
     ];
     const store = mockStore(createStore);
-    return store.dispatch(getArticleEdition('5974452d72f1dc0938a2109f')).then(() => {
-      const actions = store.getActions();
-      expect(actions[0].type).toEqual(expectedActions[0].type);
-      expect(actions[0].payload.title).toBe(expectedActions[0].payload.title);
-      expect(actions[0].payload.tags[0].name).toBe(expectedActions[0].payload.tags[0]);
+    return store
+      .dispatch(getArticleEdition('5974452d72f1dc0938a2109f'))
+      .then(() => {
+        const actions = store.getActions();
+        expect(actions[0].type).toEqual(expectedActions[0].type);
+        expect(actions[0].payload.title).toBe(expectedActions[0].payload.title);
+        expect(actions[0].payload.tags[0].name).toBe(
+          expectedActions[0].payload.tags[0],
+        );
+      });
+  });
+
+  it('creates a new article', () => {
+    const articlePost = formatArticleGraphQL(articleFake.data.articles[0]);
+    nock(host)
+      .post('/graphql', { query: ARTICLE_CREATE_QUERY(articlePost) })
+      .reply(200, articleFake);
+
+    const expectedActions = [
+      { type: ENABLE_MUTATION },
+      { type: DISABLE_MUTATION },
+    ];
+    const store = mockStore(createStore);
+    return store.dispatch(addArticle(articleFake.data.articles[0])).then(() => {
+      jest.runAllTimers();
+      expect(store.getActions()).toEqual(expectedActions);
     });
+  });
+
+  it('edits a new article', () => {
+    const articlePost = formatArticleGraphQL(articleFake.data.articles[0]);
+    nock(host)
+      .post('/graphql', { query: ARTICLE_EDIT_QUERY(articlePost) })
+      .reply(200, articleFake);
+
+    const expectedActions = [
+      { type: ENABLE_MUTATION },
+      { type: DISABLE_MUTATION },
+    ];
+    const store = mockStore(createStore);
+    return store
+      .dispatch(editArticle(articleFake.data.articles[0]))
+      .then(() => {
+        jest.runAllTimers();
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('creates DELETE_ARTICLE when deleting has been done', () => {
     nock(host)
-      .post('/graphql', { query: ARTICLE_DELETE_QUERY('5974452d72f1dc0938a2109f') })
+      .post('/graphql', {
+        query: ARTICLE_DELETE_QUERY('5974452d72f1dc0938a2109f'),
+      })
       .reply(200, articleFake);
 
-    const expectedActions = [
-      { type: DELETE_ARTICLE, payload: 0 },
-    ];
+    const expectedActions = [{ type: DELETE_ARTICLE, payload: 0 }];
     const store = mockStore(createStore);
     return store.dispatch(deleteArticle(article)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });
-

@@ -29,7 +29,7 @@ function formatArticle(article) {
   };
 }
 
-function formatArticleGraphQL(article) {
+export function formatArticleGraphQL(article) {
   return {
     ...article,
     content: article.content.trim(),
