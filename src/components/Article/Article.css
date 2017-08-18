@@ -2,14 +2,21 @@
     background: #FFF;
     border-radius: 3px;
     box-shadow: 0px 3px 0px 2px #eee;
-    display: block;
+    display: flex;
+    flex-direction: column;
     margin-bottom: 15px;
     margin-right: 15px;
     padding: 7px 12px;
     width: 100%;
 }
 
+.article.relative {
+    position: relative;
+}
+
 .article .title {
+    font-size: 1.5em;
+    font-weight: bold;
     margin-top: 10px;
     margin-bottom: 10px;
     text-align: center;
@@ -20,9 +27,60 @@
     text-align: center;
 }
 
+.article .action {
+    align-items: center;
+    color: #E7E5DF;
+    cursor: pointer;
+    display: none;
+    justify-content: center;
+    height: 50%;    
+    opacity: 0;
+    top: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    width: 100%;
+    transition: 2s opacity ease-in-out;
+}
+
+.article button {
+    background: #A8ACC7;
+    border: none;
+    color: #FFF;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    letter-spacing: 0.05em;
+    padding: 20px 12px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.article .action.visible {
+    display: flex;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+}
+
+.article .action.edit-action {
+    background: #8CA0D7;
+    top: 0;
+}
+
+.article .action.delete-action {
+    background: #9E2104;
+    top: 50%;
+}
+
 @media(min-width: 600px) {
     .article {
-        width: calc((100% / 2) - 40px);
+        width: calc(100% / 2 - 40px);
+    }
+}
+
+@media(min-width: 900px) {
+    .article {
+        width: calc(100% / 3 - 40px);
     }
     .article .author {
         text-align: right;

@@ -1,28 +1,13 @@
-html,
-body {
-    color: #555b6e;
-    font-family: 'Oswald', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin: 0;
-}
-
-.main {
-    background: rgba(134, 147, 171, 0.1);
-    margin-top: 60px;
-    padding-top: 10px;
-}
-
 .articles {
     display: flex;
     flex-wrap: wrap;
     margin: 0 20px;
+}
+
+.no-results {
+    align-items: center;
+    display: flex;
+    font-size: 10vw;
+    justify-content: center;
+    height: 100vh;
 }

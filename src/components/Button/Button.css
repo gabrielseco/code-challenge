@@ -1,0 +1,13 @@
+.button {
+  background: #A8ACC7;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.24);
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+}
+
+.button span {
+  color: #E7E5DF;
+}

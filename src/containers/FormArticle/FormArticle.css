@@ -1,0 +1,47 @@
+.form-article form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.form-article form > .form-group {
+    margin-bottom: 10px;
+}
+
+.form-article form > .form-group label {
+    display: inline-block;
+    width: calc(30% - 20px);
+}
+
+.form-article form > .form-group input,
+textarea {
+    display: inline-block;
+    font-size: 0.8em;
+    padding: 7px 12px;
+    width: calc(70% - 20px);
+}
+
+.form-article form > .form-group textarea {
+    height: 100px;
+    vertical-align: middle;
+}
+
+.form-article form > .form-group input[type=checkbox] {
+    margin: 0;
+    padding: 0;
+}
+
+.form-article form > input[type=submit] {
+    border: none;
+    background: #A8ACC7;
+    border-radius: 3px;
+    color: #E7E5DF;
+    font-size: 0.9em;
+    padding: 20px;
+}
+
+.form-article form > .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 40px 0 40px calc(30% - 20px);
+}
