@@ -1,8 +1,24 @@
-import { Types } from 'mongoose';
+import {
+  GraphQLString,
+  GraphQLList,
+} from 'graphql';
+import { findById } from './helpers';
+import { ArticleType } from './types';
+import db from './db';
 
-// Done this function to return the result as an Iterable
+const ArticlesQuery = {
+  articles: {
+    type: new GraphQLList(ArticleType),
+    args: {
+      id: { type: GraphQLString, description: 'Get article by Id' },
+    },
+    resolve(_, { id }) {
+      return id ? findById(db, 'Article', id) : db.Article.find();
+    },
+  },
+};
 
-export default async function findById(db, className, value) {
-  const result = await db[className].findOne({ _id: new Types.ObjectId(value) });
-  return [result];
-}
+export {
+  ArticlesQuery,
+};
+

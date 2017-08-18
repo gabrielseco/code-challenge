@@ -3,29 +3,42 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apply-classes": "^1.0.3",
     "axios": "^0.16.1",
-    "flow-bin": "^0.50.0",
+    "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-fontawesome": "^1.6.1",
     "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
-    "react-router-dom": "^4.1.1",
-    "react-scripts": "0.9.5"
+    "nock": "^9.0.14",
+    "react-scripts": "1.0.10",
+    "react-test-renderer": "^15.5.4",
+    "redux-mock-store": "^1.2.3"
   },
   "scripts": {
-    "flow": "flow",
+    "coverage:open": "open ./coverage/lcov-report/index.html",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
+    "test": "react-scripts test --env=jsdom --coverage",
+    "test:watch": "react-scripts test --env=jsdom --watch --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/index.js",
+      "!src/store/*.js"
+    ]
   }
 }

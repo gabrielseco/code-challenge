@@ -1,6 +1,11 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": [
+    "airbnb"
+  ],
+  "plugins": [
+    "react"
+  ],
   "globals": {
     "atom": true
   },
@@ -17,13 +22,16 @@
     ],
     "func-names": "off",
     "global-require": "off",
+    "arrow-body-style": "off",
     "no-use-before-define": 0,
     "no-underscore-dangle": 0,
+    "react/forbid-prop-types": 0,
     "react/sort-prop-types": 2,
     "react/jsx-no-bind": 2,
     "react/require-default-props": 0,
     "react/no-find-dom-node": 0,
     "react/jsx-filename-extension": 0,
+    "react/no-array-index-key": 0,
     "space-before-function-paren": [
       2,
       "never"

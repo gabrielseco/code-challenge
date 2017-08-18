@@ -1,18 +1,18 @@
-// @flow
-import { Article as IArticle } from './../types';
-import { SET_ARTICLES, SET_ARTICLE } from './../actions';
+import {
+  SET_ARTICLES,
+  SET_ARTICLE,
+  DELETE_ARTICLE,
+  ENABLE_MUTATION,
+  DISABLE_MUTATION,
+} from './../actions';
 
-export type State = {
-  articles: IArticle[],
-  article: IArticle
-};
-
-const initialState: State = {
+export const initialState = {
   articles: [],
-  article: [],
+  article: null,
+  articleMutation: false,
 };
 
-const article = (state: State = initialState, action) => {
+const article = (state = initialState, action) => {
   switch (action.type) {
     case SET_ARTICLES:
       return {
@@ -23,6 +23,24 @@ const article = (state: State = initialState, action) => {
       return {
         ...state,
         article: action.payload,
+      };
+    case DELETE_ARTICLE:
+      return {
+        ...state,
+        articles: [
+          ...state.articles.slice(0, action.payload),
+          ...state.articles.slice(action.payload + 1),
+        ],
+      };
+    case ENABLE_MUTATION:
+      return {
+        ...state,
+        articleMutation: true,
+      };
+    case DISABLE_MUTATION:
+      return {
+        ...state,
+        articleMutation: false,
       };
     default:
       return state;

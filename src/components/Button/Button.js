@@ -1,14 +1,9 @@
-// @flow
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import './Button.css';
 
-const Button = (props: {
-  icon: string,
-  size?: string,
-  onClick: Function
-}) => {
+const Button = props => {
   const onClick = () => {
     if (props.onClick) {
       props.onClick({
@@ -21,6 +16,12 @@ const Button = (props: {
       <FontAwesome size={props.size} name={props.icon} />
     </button>
   );
+};
+
+Button.propTypes = {
+  icon: PropTypes.string,
+  onClick: PropTypes.func,
+  size: PropTypes.string,
 };
 
 export default Button;

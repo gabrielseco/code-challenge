@@ -1,10 +1,8 @@
-// @flow
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Article } from './../../components';
-import { Article as IArticle } from './../../types';
-import { getArticles } from './../../actions';
-import { State } from './../../reducers';
+import { getArticles, deleteArticle } from './../../actions';
 import './App.css';
 
 class App extends Component {
@@ -12,6 +10,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.renderArticles = this.renderArticles.bind(this);
+    this.onEdit = this.onEdit.bind(this);
+    this.onRemove = this.onRemove.bind(this);
   }
 
   // lifecycle
@@ -20,33 +20,52 @@ class App extends Component {
     dispatch(getArticles());
   }
 
-  props: {
-    dispatch: any,
-    articles: IArticle[]
-  };
+  onEdit(data) {
+    this.props.history.push(`/article/edit/${data.id}`);
+  }
+
+  onRemove(article) {
+    const { dispatch } = this.props;
+    dispatch(deleteArticle(article));
+  }
 
   renderArticles() {
-    return this.props.articles.map((article: IArticle) =>
-      <Article key={article.id} data={article} />,
+    return this.props.articles.map(article =>
+      <Article key={article.id} data={article} onRemove={this.onRemove} onEdit={this.onEdit} />,
     );
   }
 
   // Renders
   render() {
+    if (this.props.articles.length > 0) {
+      return (
+        <div className="articles">
+          {this.renderArticles()}
+        </div>
+      );
+    }
     return (
-      <div className="articles">
-        {this.renderArticles()}
+      <div className="no-results">
+        <p>Nothing to see here</p>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = state => ({
   articles: state.article.articles,
 });
 
 App.defaultProps = {
   articles: [],
 };
+
+App.propTypes = {
+  articles: PropTypes.arrayOf(PropTypes.object),
+  dispatch: PropTypes.func,
+  history: PropTypes.object,
+};
+
+export { App as AppTesting, mapStateToProps };
 
 export default connect(mapStateToProps)(App);
