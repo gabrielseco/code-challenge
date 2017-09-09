@@ -1,11 +1,14 @@
 import _ from 'lodash';
 import Faker from 'faker';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-mongoose.connect('mongodb://localhost/billin');
-mongoose.set('debug', true);
+dotenv.config();
+const db = mongoose.createConnection(process.env.MONGO_URL, {
+  useMongoClient: true,
+});
 
-const Article = mongoose.model('Article', {
+const Article = db.model('Article', {
   author: String,
   content: String,
   excerpt: String,
