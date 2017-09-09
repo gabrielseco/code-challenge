@@ -32,8 +32,8 @@ function formatArticle(article) {
 export function formatArticleGraphQL(article) {
   return {
     ...article,
-    content: article.content.trim(),
-    excerpt: article.excerpt.trim(),
+    content: JSON.stringify(article.content.trim()),
+    excerpt: JSON.stringify(article.excerpt.trim()),
     tags: article.tags.map(tag => tag.name),
   };
 }
