@@ -31,6 +31,7 @@
     "coverage:open": "open ./coverage/lcov-report/index.html",
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "prod": "cd ./server && npm install && npm start",
     "test": "react-scripts test --env=jsdom --coverage",
     "test:watch": "react-scripts test --env=jsdom --watch --coverage"
   },
