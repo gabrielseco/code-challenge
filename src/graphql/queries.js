@@ -47,8 +47,8 @@ export const ARTICLE_CREATE_QUERY = article => `
     createArticle(article: {
       title: "${article.title}",
       author: "${article.author}",
-      excerpt: "${article.excerpt}",
-      content: "${article.content}",
+      excerpt: ${article.excerpt},
+      content: ${article.content},
       published: ${article.published},
       tags: "${article.tags}",
     }){
@@ -66,8 +66,8 @@ export const ARTICLE_EDIT_QUERY = article => `
       id: "${article.id}",
       title: "${article.title}",
       author: "${article.author}",
-      excerpt: "${article.excerpt}",
-      content: "${article.content}",
+      excerpt: ${article.excerpt},
+      content: ${article.content},
       published: ${article.published},
       tags: "${article.tags}",
     }){

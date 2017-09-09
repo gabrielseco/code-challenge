@@ -7,6 +7,8 @@ import {
   ARTICLE_DELETE_QUERY,
 } from './queries';
 
+const contentMock = JSON.stringify('Test');
+
 const ARTICLES_QUERY_MOCK = `{
   articles {
     author,
@@ -43,8 +45,8 @@ const ARTICLE_CREATE_QUERY_MOCK = `
     createArticle(article: {
       title: "Avicii",
       author: "Tim Berg",
-      excerpt: "Test",
-      content: "Test",
+      excerpt: ${contentMock},
+      content: ${contentMock},
       published: true,
       tags: "React,GraphQL",
     }){
@@ -62,8 +64,8 @@ const ARTICLE_EDIT_QUERY_MOCK = `
       id: "1234",
       title: "Avicii",
       author: "Tim Berg",
-      excerpt: "Test",
-      content: "Test",
+      excerpt: ${contentMock},
+      content: ${contentMock},
       published: true,
       tags: "React,GraphQL",
     }){
@@ -105,8 +107,8 @@ describe('Queries suite', () => {
       ARTICLE_CREATE_QUERY({
         title: 'Avicii',
         author: 'Tim Berg',
-        excerpt: 'Test',
-        content: 'Test',
+        excerpt: contentMock,
+        content: contentMock,
         published: true,
         tags: ['React', 'GraphQL'],
       }),
@@ -119,8 +121,8 @@ describe('Queries suite', () => {
         id: '1234',
         title: 'Avicii',
         author: 'Tim Berg',
-        excerpt: 'Test',
-        content: 'Test',
+        excerpt: contentMock,
+        content: contentMock,
         published: true,
         tags: ['React', 'GraphQL'],
       }),
